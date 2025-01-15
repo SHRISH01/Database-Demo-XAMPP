@@ -18,7 +18,7 @@ class app:
         elif user_input == "2":
             self.login()
         else:
-            sys.exit(420)
+            sys.exit(420)  # Exit with custom code
 
     def register(self):
         # Implement user registration logic here
@@ -28,14 +28,28 @@ class app:
         address = input("Enter the Address Details Here.")
         password = input("Enter the Password.")
 
-        response=self.db.register(name,address,password)
+        response = self.db.register(name, address, password)
 
-        if response:
+        if response == 1:  # Registration successful
             print("Registration Successful")
             self.menu()
+        else:
+            print("Registration Failed. Please try again.")
+            self.menu()  # Return to menu for retry
 
-        else :
-            sys.exit(0)
+    def login(self):
+        id = input("ENTER YOUR ASSOCIATED ID")
+        password = input("Enter your Login Password")
 
+        # Fix the error: use authenticate instead of search
+        authenticated = self.db.authenticate(id, password)
+
+        if authenticated:
+            print("Login Successful!")
+            # Implement actions after successful login (e.g., display user profile)
+            # ...
+        else:
+            print("Login Failed. Please check your credentials and try again.")
+            self.menu()  # Return to menu for retry
 
 obj = app()
